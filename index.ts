@@ -88,11 +88,15 @@ const trucks$ = new Subject<Truck>();
 // #6 ---
 // step 1: merge all cars with all trucks (don't use the 'combineLatest' operator)
 
-merge(cars$, trucks$).subscribe((transportmean) => console.log(transportmean));
+// merge(cars$, trucks$).subscribe((transportmean) => console.log(transportmean));
 
 // #7 ---
 // step 1: merge all cars with all trucks (don't use the 'combineLatest' operator)
 // step 2: make sure that the trucks output before the cars
+
+merge(cars$.pipe(delay(500)), trucks$).subscribe((transportmean) =>
+  console.log(transportmean)
+);
 
 // #8 ---
 // step 1: only get the cars by make Ford and Volvo

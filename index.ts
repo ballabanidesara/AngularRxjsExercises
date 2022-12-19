@@ -5,6 +5,7 @@ import {
   race,
   interval,
   combineLatestWith,
+  zip,
 } from 'rxjs';
 import {
   filter,
@@ -112,11 +113,13 @@ const trucks$ = new Subject<Truck>();
 // #9 ---
 // step 1: only emit the results of whoever emits first, if cars$ emits first then the trucks$ should be ignored completely
 
-race(cars$, trucks$).subscribe((transportmean) => console.log(transportmean));
+// race(cars$, trucks$).subscribe((transportmean) => console.log(transportmean));
 
 // #10 ---
 // step 1: the first value of cars$ should be combined with the first value of trucks$
 // cars$ = [1,2,3,4,5]; trucks$ = ['a', 'b', 'c']; result = [ [1,'a'], [2,'b'], [3,'c'] ]
+
+zip(cars$, trucks$).subscribe((transportmean) => console.log(transportmean));
 
 // #11 ---
 // step 1: log something every 2000ms (the value can be a static value)

@@ -102,15 +102,17 @@ const trucks$ = new Subject<Truck>();
 // step 1: only get the cars by make Ford and Volvo
 // step 2: merge the trucks into the cars stream and make sure only the trucks of the same brand as the cars will be in the stream output (HINT: take a look at mergeMap and switchMap, only the trucks should be returned)
 
-cars$
-  .pipe(
-    filter((car) => car.make === 'Ford' || car.make === 'Volvo'),
-    mergeMap((car) => trucks$.pipe(filter((truck) => truck.make === car.make)))
-  )
-  .subscribe((car) => console.log(car));
+// cars$
+//   .pipe(
+//     filter((car) => car.make === 'Ford' || car.make === 'Volvo'),
+//     mergeMap((car) => trucks$.pipe(filter((truck) => truck.make === car.make)))
+//   )
+//   .subscribe((car) => console.log(car));
 
 // #9 ---
 // step 1: only emit the results of whoever emits first, if cars$ emits first then the trucks$ should be ignored completely
+
+race(cars$, trucks$).subscribe((transportmean) => console.log(transportmean));
 
 // #10 ---
 // step 1: the first value of cars$ should be combined with the first value of trucks$

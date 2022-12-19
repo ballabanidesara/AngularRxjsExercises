@@ -94,13 +94,20 @@ const trucks$ = new Subject<Truck>();
 // step 1: merge all cars with all trucks (don't use the 'combineLatest' operator)
 // step 2: make sure that the trucks output before the cars
 
-merge(cars$.pipe(delay(500)), trucks$).subscribe((transportmean) =>
-  console.log(transportmean)
-);
+// merge(cars$.pipe(delay(500)), trucks$).subscribe((transportmean) =>
+//   console.log(transportmean)
+// );
 
 // #8 ---
 // step 1: only get the cars by make Ford and Volvo
 // step 2: merge the trucks into the cars stream and make sure only the trucks of the same brand as the cars will be in the stream output (HINT: take a look at mergeMap and switchMap, only the trucks should be returned)
+
+cars$
+  .pipe(
+    filter((car) => car.make === 'Ford' || car.make === 'Volvo'),
+    mergeMap((car) => trucks$.pipe(filter((truck) => truck.make === car.make)))
+  )
+  .subscribe((car) => console.log(car));
 
 // #9 ---
 // step 1: only emit the results of whoever emits first, if cars$ emits first then the trucks$ should be ignored completely

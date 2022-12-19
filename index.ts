@@ -52,17 +52,24 @@ const trucks$ = new Subject<Truck>();
 // step 2: console log the cars inside the stream
 // step 3: delay the emit of the values by 500ms
 
-cars$
-  .pipe(
-    filter((car) => car.color === 'blue'),
-    tap((car) => console.log('BlueColor', car)),
-    delay(500)
-  )
-  .subscribe((car) => console.log(car));
+// cars$
+//   .pipe(
+//     filter((car) => car.color === 'blue'),
+//     tap((car) => console.log('BlueColor', car)),
+//     delay(500)
+//   )
+//   .subscribe((car) => console.log(car));
 
 // #4 ---
 // step 1: only get the 'make' of the car
 // step 2: only emit a new value when there hasn't been any activity on the stream for at least 500ms
+
+cars$
+  .pipe(
+    map((car) => car.make),
+    debounceTime(500)
+  )
+  .subscribe((car) => console.log(car));
 
 // #5 ---
 // step 1: combine all cars with all trucks (don't use the 'merge' operator)

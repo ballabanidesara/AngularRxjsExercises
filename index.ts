@@ -81,12 +81,14 @@ const trucks$ = new Subject<Truck>();
 // #5 ---
 // step 1: combine all cars with all trucks (don't use the 'merge' operator)
 
-combineLatest(cars$, trucks$).subscribe(([car, truck]) =>
-  console.log('Car:', car, 'Truck:', truck)
-);
+// combineLatest(cars$, trucks$).subscribe(([car, truck]) =>
+//   console.log('Car:', car, 'Truck:', truck)
+// );
 
 // #6 ---
 // step 1: merge all cars with all trucks (don't use the 'combineLatest' operator)
+
+merge(cars$, trucks$).subscribe((transportmean) => console.log(transportmean));
 
 // #7 ---
 // step 1: merge all cars with all trucks (don't use the 'combineLatest' operator)

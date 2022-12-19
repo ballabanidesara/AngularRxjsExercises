@@ -30,13 +30,13 @@ const trucks$ = new Subject<Truck>();
 // step 2: only get the 'color' of the car
 // step 3: only emit a new value when the value is different from the previous one
 
-cars$
-  .pipe(
-    filter((car) => car.color === 'black' || car.color === 'red'),
-    map((car) => car.color),
-    distinctUntilChanged()
-  )
-  .subscribe((car) => console.log(car));
+// cars$
+//   .pipe(
+//     filter((car) => car.color === 'black' || car.color === 'red'),
+//     map((car) => car.color),
+//     distinctUntilChanged()
+//   )
+//   .subscribe((car) => console.log(car));
 
 // step 1: --c1--c2--c3--c4--c5--c6--c7--c8--c9--c10--c11--c12--c13
 // step 2: --c1--c2------c4
@@ -44,6 +44,8 @@ cars$
 // #2 ---
 // step 1: skip the first 3 cars from the stream
 // step 2: take only the first 5 cars from the stream, ignore all the others
+
+cars$.pipe(skip(3), take(5)).subscribe((car) => console.log(car));
 
 // #3 ---
 // step 1: only get the cars with the 'color' blue

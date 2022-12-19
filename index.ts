@@ -45,12 +45,20 @@ const trucks$ = new Subject<Truck>();
 // step 1: skip the first 3 cars from the stream
 // step 2: take only the first 5 cars from the stream, ignore all the others
 
-cars$.pipe(skip(3), take(5)).subscribe((car) => console.log(car));
+// cars$.pipe(skip(3), take(5)).subscribe((car) => console.log(car));
 
 // #3 ---
 // step 1: only get the cars with the 'color' blue
 // step 2: console log the cars inside the stream
 // step 3: delay the emit of the values by 500ms
+
+cars$
+  .pipe(
+    filter((car) => car.color === 'blue'),
+    tap((car) => console.log('BlueColor', car)),
+    delay(500)
+  )
+  .subscribe((car) => console.log(car));
 
 // #4 ---
 // step 1: only get the 'make' of the car

@@ -1,4 +1,11 @@
-import { Subject, combineLatest, merge, race, interval } from 'rxjs';
+import {
+  Subject,
+  combineLatest,
+  merge,
+  race,
+  interval,
+  combineLatestWith,
+} from 'rxjs';
 import {
   filter,
   distinct,
@@ -64,15 +71,19 @@ const trucks$ = new Subject<Truck>();
 // step 1: only get the 'make' of the car
 // step 2: only emit a new value when there hasn't been any activity on the stream for at least 500ms
 
-cars$
-  .pipe(
-    map((car) => car.make),
-    debounceTime(500)
-  )
-  .subscribe((car) => console.log(car));
+// cars$
+//   .pipe(
+//     map((car) => car.make),
+//     debounceTime(500)
+//   )
+//   .subscribe((car) => console.log(car));
 
 // #5 ---
 // step 1: combine all cars with all trucks (don't use the 'merge' operator)
+
+combineLatest(cars$, trucks$).subscribe(([car, truck]) =>
+  console.log('Car:', car, 'Truck:', truck)
+);
 
 // #6 ---
 // step 1: merge all cars with all trucks (don't use the 'combineLatest' operator)
